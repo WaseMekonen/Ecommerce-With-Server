@@ -1,6 +1,5 @@
 const cart = [];
 
-
 function getProductByID(id) {
   for (let i = 0; i < products.length; i++) {
     if (products[i].id == id) {
@@ -14,7 +13,7 @@ function addToCartByID(id) {
   cart.push(Product);
 }
 
-function showItemByCategory(div, category) {
+function showItemByCategory(div, category,products) {
   for (let i = 0; i < products.length; i++) {
     if (products[i].category == category) {
       div.innerHTML += `<div class="card">
@@ -32,12 +31,17 @@ function showItemByCategory(div, category) {
   }
 }
 
-
-
 const cardContainer = document.getElementById("cards-container");
 const pagesCategory = document.getElementsByClassName("page-category")[0];
 
-showItemByCategory(cardContainer,pagesCategory.id);
+axios
+.get('/products')
+.then(response => {
+  showItemByCategory(cardContainer,pagesCategory.id,response.data)
+.catch(err=>{
+  console.log(err);
+})
+})
 
 const addToCartButtons = document.getElementsByClassName("addtocart-button");
 const itemCounterButoon = document.getElementById("itemCounter");
@@ -64,5 +68,3 @@ for (let i = 0; i < addToCartButtons.length; i++) {
     }
   });
 }
-
-

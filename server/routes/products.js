@@ -1,12 +1,15 @@
-app.post("/products", (req, res) => {
-    // create product
-    try {
-      db.collection("products").insertOne(req.body);
-    } catch (error) {
-      res.status(400).send();
-    }
-  });
 
+function createProduct (app,db){
+    app.post("/products", (req, res) => {
+        // create product
+        try {
+          db.collection("products").insertOne(req.body);
+        } catch (error) {
+          res.status(400).send();
+        }
+      });
+}
+function returnAllProduct(app,db) {
   app.get("/products", (req, res) => {
     //return all products
     db.collection("products")
@@ -18,20 +21,25 @@ app.post("/products", (req, res) => {
         res.send(col);
       });
   });
+}
+function updateProductByiD(app,db){
+    app.patch("/products/:id", (req, res) => {
+        // todo: get id and new data and update them
+        let id = req.params.id;
+        const reqBody = req.body;
+        // let id = req.params.id
+        db.collection("products").updateOne(
+          { _id: objectId(id) },
+          { $set: reqBody }
+        );
+      });
+}
+function removeProductByID(app,db){
+    app.delete("/products/:id", (req, res) => {
+        // todo: get id and remove product
+        let id = req.params.id;
+        db.collection("products").deleteOne({ _id: objectId(id) });
+      });
+}
 
-  app.patch("/products/:id", (req, res) => {
-    // todo: get id and new data and update them
-    let id = req.params.id;
-    const reqBody = req.body;
-    // let id = req.params.id
-    db.collection("products").updateOne(
-      { _id: objectId(id) },
-      { $set: reqBody }
-    );
-  });
-
-  app.delete("/products/:id", (req, res) => {
-    // todo: get id and remove product
-    let id = req.params.id;
-    db.collection("products").deleteOne({ _id: objectId(id) });
-  });
+module.exports = {returnAllProduct,createProduct,updateProductByiD,removeProductByID};
