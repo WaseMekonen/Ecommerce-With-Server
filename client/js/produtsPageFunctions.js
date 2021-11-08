@@ -1,5 +1,3 @@
-const { default: axios } = require("axios");
-
 const cart = [];
 const cardContainer = document.getElementById("cards-container");
 const pagesCategory = document.getElementsByClassName("page-category")[0];
@@ -17,7 +15,7 @@ function addToCartByID(id) {
   cart.push(Product);
 }
 
-function showItemByCategory(div, category,products) {
+function showItemByCategory(div, category, products) {
   for (let i = 0; i < products.length; i++) {
     if (products[i].category == category) {
       div.innerHTML += `<div class="card">
@@ -35,20 +33,20 @@ function showItemByCategory(div, category,products) {
   }
 }
 
-axios
-.get('/products')
-.then(response => {
-  showItemByCategory(cardContainer,pagesCategory.id,response.data)
-.catch(err=>{
-  console.log(err);
+axios.get("/products").then((response) => {
+  showItemByCategory(cardContainer, pagesCategory.id, response.data)
 })
-})
+.catch(
+  (err) => {
+    console.log(err);
+  }
+);;
 
 const addToCartButtons = document.getElementsByClassName("addtocart-button");
 const itemCounterButoon = document.getElementById("itemCounter");
 
 for (let i = 0; i < addToCartButtons.length; i++) {
-  addToCartButtons[i].addEventListener("click", function(e){
+  addToCartButtons[i].addEventListener("click", function (e) {
     const button = e.target;
     if (button.innerText == "add to cart") {
       button.innerText = "item added";
@@ -57,15 +55,14 @@ for (let i = 0; i < addToCartButtons.length; i++) {
     } else {
       button.innerText = "add to cart";
       button.style.backgroundColor = "#2ab050";
-      removeItemFromCartById(button.id,cart);
+      removeItemFromCartById(button.id, cart);
     }
-    if(cart.length == 0){
-      itemCounterButoon.innerText='';
-      itemCounterButoon.style.display="none"
-    }
-    else{
-      itemCounterButoon.innerText=cart.length
-      itemCounterButoon.style.display="block"
+    if (cart.length == 0) {
+      itemCounterButoon.innerText = "";
+      itemCounterButoon.style.display = "none";
+    } else {
+      itemCounterButoon.innerText = cart.length;
+      itemCounterButoon.style.display = "block";
     }
   });
 }

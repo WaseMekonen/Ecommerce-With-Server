@@ -13,15 +13,13 @@ function getAllProduct(app, db) {
       });
   });
 }
+
 function createProduct(app, db) {
   app.post("/products", (req, res) => {
     // create product
-    try {
-      db.collection("products").insertOne(req.body);
-    } catch (error) {
-      res.status(400).send();
-    }
-  });
+  db.collection("products").insertOne(req.body);
+  res.send(req.body);
+})
 }
 
 function updateProductByiD(app, db) {
