@@ -1,4 +1,8 @@
+const { default: axios } = require("axios");
+
 const cart = [];
+const cardContainer = document.getElementById("cards-container");
+const pagesCategory = document.getElementsByClassName("page-category")[0];
 
 function getProductByID(id) {
   for (let i = 0; i < products.length; i++) {
@@ -30,9 +34,6 @@ function showItemByCategory(div, category,products) {
     }
   }
 }
-
-const cardContainer = document.getElementById("cards-container");
-const pagesCategory = document.getElementsByClassName("page-category")[0];
 
 axios
 .get('/products')

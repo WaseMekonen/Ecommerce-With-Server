@@ -1,15 +1,6 @@
 
-function createProduct (app,db){
-    app.post("/products", (req, res) => {
-        // create product
-        try {
-          db.collection("products").insertOne(req.body);
-        } catch (error) {
-          res.status(400).send();
-        }
-      });
-}
-function returnAllProduct(app,db) {
+
+function getAllProduct(app, db) {
   app.get("/products", (req, res) => {
     //return all products
     db.collection("products")
@@ -22,24 +13,40 @@ function returnAllProduct(app,db) {
       });
   });
 }
-function updateProductByiD(app,db){
-    app.patch("/products/:id", (req, res) => {
-        // todo: get id and new data and update them
-        let id = req.params.id;
-        const reqBody = req.body;
-        // let id = req.params.id
-        db.collection("products").updateOne(
-          { _id: objectId(id) },
-          { $set: reqBody }
-        );
-      });
-}
-function removeProductByID(app,db){
-    app.delete("/products/:id", (req, res) => {
-        // todo: get id and remove product
-        let id = req.params.id;
-        db.collection("products").deleteOne({ _id: objectId(id) });
-      });
+function createProduct(app, db) {
+  app.post("/products", (req, res) => {
+    // create product
+    try {
+      db.collection("products").insertOne(req.body);
+    } catch (error) {
+      res.status(400).send();
+    }
+  });
 }
 
-module.exports = {returnAllProduct,createProduct,updateProductByiD,removeProductByID};
+function updateProductByiD(app, db) {
+  app.patch("/products/:id", (req, res) => {
+    // get id and new data and update them
+    let id = req.params.id;
+    const reqBody = req.body;
+    // let id = req.params.id
+    db.collection("products").updateOne(
+      { _id: objectId(id) },
+      { $set: reqBody }
+    );
+  });
+}
+function removeProductByID(app, db) {
+  app.delete("/products/:id", (req, res) => {
+    // todo: get id and remove product
+    let id = req.params.id;
+    db.collection("products").deleteOne({ _id: objectId(id) });
+  });
+}
+
+module.exports = {
+  getAllProduct,
+  createProduct,
+  updateProductByiD,
+  removeProductByID,
+};
