@@ -30,15 +30,24 @@
       </nav>
     </header>
     <main>
-      <h1 class="form-header">add a new product</h1>
+      <h1 class="form-header">Add a new product</h1>
       <div class="container">
+        
         <form id="addProductForm">
+          <div class="row">
+            <div class="heading-con">
+              <label for="name">Id</label>
+            </div>
+            <div class="inputs-con">
+              <input type="text" id="form-id" placeholder="Your product name..">
+            </div>
+          </div>
           <div class="row">
             <div class="heading-con">
               <label for="name">Name</label>
             </div>
             <div class="inputs-con">
-              <input type="text"  name="name" id="form-name" placeholder="Your product name..">
+              <input type="text" id="form-name" placeholder="Your product name..">
             </div>
           </div>
           <div class="row">
@@ -46,7 +55,7 @@
               <label for="price">price</label>
             </div>
             <div class="inputs-con">
-              <input type="number"  name="price" id="form-price" placeholder="Insert a price..">
+              <input type="number" id="form-price" placeholder="Insert a price..">
             </div>
           </div>
           <div class="row">
@@ -58,7 +67,7 @@
               <label for="category">category</label>
             </div>
             <div class="inputs-con">
-              <input type="text"  name="category" id="form-category" placeholder="Insert a category..">
+              <input type="text" id="form-category" placeholder="Insert a category..">
             </div>
           </div>
           <div class="row">
@@ -66,7 +75,7 @@
               <label for="image">image 1:</label>
             </div>
             <div class="inputs-con">
-              <input type="text" name="image 1" id="form-image1" placeholder="Insert a link..">
+              <input type="text" id="form-image1" placeholder="Insert a link..">
             </div>
           </div>
           <div class="row">
@@ -74,7 +83,7 @@
               <label for="image">image 2:</label>
             </div>
             <div class="inputs-con">
-              <input type="text" name="image 2" id="form-image2" placeholder="Insert a link..">
+              <input type="text" id="form-image2" placeholder="Insert a link..">
             </div>
           </div>
           <div class="row">
@@ -82,11 +91,12 @@
               <label for="description">description</label>
             </div>
             <div class="inputs-con">
-              <textarea  name="description" id="form-description" placeholder="Write something.." style="height:90px"></textarea>
+              <textarea id="form-description" placeholder="Write something.." style="height:90px"></textarea>
             </div>
           </div>
           <div class="row">
             <input type="submit" value="Add Product">
+            <input type="button" id="updateButton" value="Update Product">
           </div>
         </form>
       </div>
@@ -113,6 +123,10 @@
     
     <script src="/js/navbar.js"></script>
     <script src="/js/addProduct.js"></script>
+    <script>
+      
+      updateButton.addEventListener("click", updateProduct);
+    </script>
     <!-- <script src="/js/items.js"></script> -->
   </body>
 </html>

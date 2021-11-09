@@ -13,7 +13,7 @@ const express = require("express"),
   mongoClient = mongoDb.MongoClient,
   objectId = mongoDb.ObjectId,
   URL = "mongodb://localhost:27017",
-  clientPath = path.join(__dirname, "..", "client"),
+  clientPath = path.join(__dirname, "..", "client");
 
 app.use(express.static(clientPath));
 app.use(express.json());
@@ -23,18 +23,21 @@ mongoClient.connect(URL, (err, mongo) => {
     console.log(err);
   }
   const db = mongo.db("ecommerce");
+
   // Products:
 
   getAllProduct(app, db);
   createProduct(app, db);
   updateProductByiD(app, db);
   removeProductByID(app, db);
+
   // Cart:
 
-  addItemToCart(app,db)
-  createNewCart(app,db)
-  getCartByID(app,db)
-  removeItemToCart(app,db)
+  addItemToCart(app,db);
+  createNewCart(app,db);
+  getCartByID(app,db);
+  removeItemToCart(app,db);
+
   // Contact:
 
   app.post("/contact", (req, res) => {
@@ -42,11 +45,11 @@ mongoClient.connect(URL, (err, mongo) => {
     
     res.send("hello 5");
   });
-
   app.get("/contact", (req, res) => {
     // todo: get all the messages
     res.send("Hello 6");
   });
+
 });
 
 app.listen(PORT, () => {

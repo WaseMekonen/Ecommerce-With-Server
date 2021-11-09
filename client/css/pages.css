@@ -173,6 +173,9 @@ main {
   padding: 7px;
   cursor: pointer;
 }
+.card-bottom .delete-button{
+  background-color: #b02a2a;
+}
 .card-bottom {
   font-size: 23px;
 }

@@ -13,32 +13,48 @@ function getAllProduct(app, db) {
       });
   });
 }
-
 function createProduct(app, db) {
   app.post("/products", (req, res) => {
     // create product
-  db.collection("products").insertOne(req.body);
-  res.send(req.body);
+  db.collection("products").insertOne(req.body,(err,createdProd)=>{
+    if(err){
+      throw err;
+    }
+    res.send(createdProd);
+  });
+  console.log("product has been Created");
 })
 }
-
-function updateProductByiD(app, db) {
+function updateProductByiD(app, db, obj) {
   app.patch("/products/:id", (req, res) => {
     // get id and new data and update them
-    let id = req.params.id;
+    
+    let id = req.body.id;
     const reqBody = req.body;
-    // let id = req.params.id
+    console.log(reqBody);
     db.collection("products").updateOne(
       { _id: objectId(id) },
       { $set: reqBody }
-    );
+    ,(err,updatedItem)=>{
+      if(err){
+        throw err;
+      }
+      res.send(updatedItem)
+    });
+    console.log("item has been updated!!!");
   });
 }
 function removeProductByID(app, db) {
   app.delete("/products/:id", (req, res) => {
-    // todo: get id and remove product
-    let id = req.params.id;
-    db.collection("products").deleteOne({ _id: objectId(id) });
+    //  get id and remove product
+    const id = req.params.id;
+    db.collection("products").deleteOne({ _id: objectId(id) },(err,deletedItem)=>{
+      if(err){
+        throw err
+      }
+      res.send(deletedItem)
+    });
+    console.log("item has been Deleted");
   });
 }
 
