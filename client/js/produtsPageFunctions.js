@@ -3,18 +3,18 @@ const cart = [];
 const cardContainer = document.getElementById("cards-container");
 const pagesCategory = document.getElementsByClassName("page-category")[0];
 
-// function getProductByID(id) {
-//   for (let i = 0; i < products.length; i++) {
-//     if (products[i].id == id) {
-//       return products[i];
-//     }
-//   }
-// }
+function getProductByID(id) {
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].id == id) {
+      return products[i];
+    }
+  }
+}
 
-// function addToCartByID(id) {
-//   let Product = getProductByID(id);
-//   cart.push(Product);
-// }
+function addToCartByID(id) {
+  let Product = getProductByID(id);
+  cart.push(Product);
+}
 
 function showItemByCategory(div, category, products) {
   for (let i = 0; i < products.length; i++) {
@@ -25,8 +25,8 @@ function showItemByCategory(div, category, products) {
         <h4>${products[i].name}</h4>
         <p>${products[i].description}</p>
         <div class="card-bottom">
-          <button class="addtocart-button" id="${products[i].id}">add to cart</button>
-          <button id="delete-button" onclick="deleteItem(${products[i]._id})" >delete</button>
+          <button class="addtocart-button" id="${products[i]._id}">add to cart</button>
+          <button class="delete-button" id="delete-button" onclick="deleteItem('${products[i]._id}')" >delete</button>
           <span><h5>${products[i].price}$</h5></span>
         </div>
       </div>
@@ -37,15 +37,14 @@ function showItemByCategory(div, category, products) {
 
 
 function deleteItem (id){
-  // axios.delete(`/products/${id}`)
-  // .then(response =>{
-  //   console.log(response);
-  // })
-  // .catch(err=>{
-  //   console.log(err);
-  // })
+  axios.delete(`/products/${id}`)
+  .then(response =>{
+    console.log(response);
+  })
+  .catch(err=>{
+    console.log(err);
+  })
   console.log(id);
-
 }
 
    
@@ -56,13 +55,22 @@ axios.get("/products").then((response) => {
   (err) => {
     console.log(err);
   }
-);;
-
-
+);
 
 
 const addToCartButtons = document.getElementsByClassName("addtocart-button");
 const itemCounterButoon = document.getElementById("itemCounter");
+
+
+
+function removeItemFromCartById(id,array) {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].id == id) {
+      array.splice(i, 1);
+    }
+  }
+}
+
 
 for (let i = 0; i < addToCartButtons.length; i++) {
   addToCartButtons[i].addEventListener("click", function (e) {

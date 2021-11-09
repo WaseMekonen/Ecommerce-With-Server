@@ -79,6 +79,38 @@ function addEventListenersToRemoveIcons() {
   }
 }
 
+
+function removeItemFromCartById(id,array) {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].id == id) {
+      array.splice(i, 1);
+    }
+  }
+}
+
+
+for (let i = 0; i < addToCartButtons.length; i++) {
+  addToCartButtons[i].addEventListener("click", function (e) {
+    const button = e.target;
+    if (button.innerText == "add to cart") {
+      button.innerText = "item added";
+      button.style.backgroundColor = "red";
+      addToCartByID(button.id);
+    } else {
+      button.innerText = "add to cart";
+      button.style.backgroundColor = "#2ab050";
+      removeItemFromCartById(button.id, cart);
+    }
+    if (cart.length == 0) {
+      itemCounterButoon.innerText = "";
+      itemCounterButoon.style.display = "none";
+    } else {
+      itemCounterButoon.innerText = cart.length;
+      itemCounterButoon.style.display = "block";
+    }
+  });
+}
+
 function addEventListenersToPlusIcons() {
   const plusIcons = document.getElementsByClassName("plus");
 

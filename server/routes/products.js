@@ -48,7 +48,7 @@ function removeProductByID(app, db) {
   app.delete("/products/:id", (req, res) => {
     //  get id and remove product
     const id = req.params.id;
-    db.collection("products").deleteOne({ _id: objectId(id) },(err,deletedItem)=>{
+    db.collection("products").findOneAndDelete({ _id: objectId(id) },(err,deletedItem)=>{
       if(err){
         throw err
       }
