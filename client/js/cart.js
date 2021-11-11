@@ -5,73 +5,16 @@ const subTotal = document.getElementById("sub-total");
 
 
 axios
-  .get("/carts/61894fb3dbaa8fbb70c56aaa")
+  .get("/carts/618d25222145eebaf38d1cf8")
   .then((response) => {
-    console.log(response.data.products);
     const newCart = response.data.products
+    console.log(response.data.products);
     render(newCart);
   })
   .catch((err) => {
     console.log(err);
   });
 
-function getCartItemIndexByID(id) {
-  for (let i = 0; i < coustomerCart.length; i++) {
-    if (coustomerCart[i].id == id) {
-      return i;
-    }
-  }
-}
-
-function addEventListenersToRemoveIcons(coustomerCart) {
-  const removeIcons = document.getElementsByClassName("remove-icon");
-
-  for (let i = 0; i < removeIcons.length; i++) {
-    removeIcons[i].addEventListener("click", function (e) {
-      const removeButton = e.target;
-      removeItemFromCartById(removeButton.id, coustomerCart);
-
-    });
-  }
-}
-
-function addEventListenersToPlusIcons(coustomerCart) {
-  const plusIcons = document.getElementsByClassName("plus");
-
-  for (let i = 0; i < plusIcons.length; i++) {
-    plusIcons[i].addEventListener("click", function (e) {
-        const plusButton = e.target;
-        const itemIdString = plusButton.id;
-        const itemId = Number(itemIdString.slice(-1));
-        const cartItemIndex = getCartItemIndexByID(itemId);
-        coustomerCart[cartItemIndex].quantity += 1;
-  
-    });
-  }
-}
-
-function addEventListenersToMinusIcons(coustomerCart) {
-  const minusIcons = document.getElementsByClassName("minus");
-
-  for (let i = 0; i < minusIcons.length; i++) {
-    minusIcons[i].addEventListener("click", function (e) {
-      const minusButton = e.target;
-      const itemIdString = minusButton.id;
-      const itemId = Number(itemIdString.slice(-1));
-      const cartItemIndex = getCartItemIndexByID(itemId);
-      if(coustomerCart[cartItemIndex].quantity > 1){
-        coustomerCart[cartItemIndex].quantity -= 1;
-      }
-    
-    });
-  }
-}
-
-function addListeners() {
-  addEventListenersToRemoveIcons();
-  addEventListenersToPlusIcons();
-  addEventListenersToMinusIcons();
-}
 
 function updateTableProducts(coustomerCart) {
   let rawHtml = "";
@@ -79,33 +22,36 @@ function updateTableProducts(coustomerCart) {
     rawHtml += `
         <tr class="item-row">
         <td class="item">
-          <img class="item-img" src="${coustomerCart[i].image[i]}"> 
+          <img class="item-img" src="${coustomerCart[i].image}"> 
           <div class="item-description">
             <h5>${coustomerCart[i].name}</h5>
           </div>
         </td>
         <td class="item-price">${coustomerCart[i].price}$</td>
         <td class="item-quantity">
-          <span class="minus" ><i class="fas fa-minus" id="minus-${
-            coustomerCart[i].id
-          }"></i></span>
+          <span class="minus" ><i class="fas fa-minus" id="minus-${coustomerCart[i]._id}"></i></span>
           <span class="quantity">${coustomerCart[i].quantity}</span>
-          <span class="plus" ><i class="fas fa-plus" id="plus-${
-            coustomerCart[i].id
-          }"></i><span>
+          <span class="plus" ><i class="fas fa-plus" id="plus-${coustomerCart[i]._id}"></i><span>
         </td>
-        <td class="item-total">${
-          coustomerCart[i].price * coustomerCart[i].quantity
-        }$</td>
-        <td  ><span class="remove-icon" ><i  id="${
-            coustomerCart[i].id
-          }" class="fas fa-times"></i></span></td>
+        <td class="item-total">${coustomerCart[i].price * coustomerCart[i].quantity}$</td>
+        <td  ><span class="remove-icon"><i onclick="deleteItemFromCart('${coustomerCart[i]._id}')" class="fas fa-times"></i></span></td>
         </tr>`;
-        console.log(coustomerCart[i].quantity);
   }
-
   tableCountainer.innerHTML = rawHtml;
-  addListeners();
+}
+
+
+
+function deleteItemFromCart(id){
+  console.log(id);
+  axios
+  .patch(`/carts/delete/${id}`)
+  .then((response)=>{
+    console.log(response);
+  })
+  .catch((err)=>{
+    console.log(err);
+  })
 }
 
 function updateTotal(coustomerCart) {
@@ -121,3 +67,63 @@ function render(newCart) {
   updateTableProducts(newCart);
   updateTotal(newCart);
 }
+
+
+
+// function getCartItemIndexByID(id) {
+//   for (let i = 0; i <newCart.length; i++) {
+//     if (newCart[i].id == id) {
+//       return i;
+//     }
+//   }
+// }
+
+// function addEventListenersToRemoveIcons() {
+//   const removeIcons = document.getElementsByClassName("remove-icon");
+
+//   for (let i = 0; i < removeIcons.length; i++) {
+//     removeIcons[i].addEventListener("click", function (e) {
+//       const removeButton = e.target;
+//       removeItemFromCartById(removeButton.id, coustomerCart);
+
+//     });
+//   }
+// }
+
+// function addEventListenersToPlusIcons() {
+//   const plusIcons = document.getElementsByClassName("plus");
+
+//   for (let i = 0; i < plusIcons.length; i++) {
+//     plusIcons[i].addEventListener("click", function (e) {
+//         const plusButton = e.target;
+//         const itemIdString = plusButton.id;
+//         const itemId = Number(itemIdString.slice(-1));
+//         const cartItemIndex = getCartItemIndexByID(itemId);
+//         coustomerCart[cartItemIndex].quantity += 1;
+  
+//     });
+//   }
+// }
+
+// function addEventListenersToMinusIcons() {
+//   const minusIcons = document.getElementsByClassName("minus");
+
+//   for (let i = 0; i < minusIcons.length; i++) {
+//     minusIcons[i].addEventListener("click", function (e) {
+//       const minusButton = e.target;
+//       const itemIdString = minusButton.id;
+//       const itemId = Number(itemIdString.slice(-1));
+//       const cartItemIndex = getCartItemIndexByID(itemId);
+//       if(coustomerCart[cartItemIndex].quantity > 1){
+//         coustomerCart[cartItemIndex].quantity -= 1;
+//       }
+    
+//     });
+//   }
+// }
+
+// function addListeners() {
+//   addEventListenersToRemoveIcons();
+//   addEventListenersToPlusIcons();
+//   addEventListenersToMinusIcons();
+// }

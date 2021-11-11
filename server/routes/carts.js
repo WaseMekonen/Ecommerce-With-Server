@@ -1,3 +1,6 @@
+const mongoDb = require("mongodb"),
+  objectId = mongoDb.ObjectId;
+
 function getCartByID(app, db) {
   app.get("/carts/:id", (req, res) => {
     //  get id and return a cart
@@ -24,7 +27,7 @@ function createNewCart(app, db) {
 
 function addItemToCart(app, db) {
   app.patch("/carts/add", (req, res) => {
-  //  add item to cart
+    //  add item to cart
     const reqBody = {
       _id: objectId(req.body.id),
       name: req.body.name,
@@ -32,16 +35,16 @@ function addItemToCart(app, db) {
       description: req.body.description,
       category: req.body.category,
       image: req.body.image,
-      quantity: req.body.quantity
+      quantity: req.body.quantity,
     };
-  
+
     db.collection("carts").updateOne(
-      { _id: objectId("61894fb3dbaa8fbb70c56aaa") },
-      { $push: { products: reqBody } },(err,addItem)=>{
-        if(err){
+      { _id: objectId("618d25222145eebaf38d1cf8") },
+      { $push: { products: reqBody } },
+      (err, addItem) => {
+        if (err) {
           throw err;
-        }
-        else{
+        } else {
           console.log(addItem);
         }
       }
@@ -51,22 +54,20 @@ function addItemToCart(app, db) {
 }
 
 function removeItemToCart(app, db) {
-  app.patch("/carts/delete", (req, res) => {
+  app.patch("/carts/delete/:id", (req, res) => {
     // delete items from cart
-    db.collection("carts").updateOne(
-      { _id: objectId("61894fb3dbaa8fbb70c56aaa") },
-      { $pull: { products: req.body } },
-      (err, deletedItem) => {
-        if (err) {
-          throw err;
-        } else {
-          console.log(deletedItem);
-        }
+    const paramId = req.param.id
+    const obj = { _id:objectId(paramId) };
+    db.collection("carts").findOneAndUpdate({_id:objectId("618d25222145eebaf38d1cf8")},{ $pull: { products: {_id:objectId(paramId)} } },(err, pro) => {
+      if (err) {
+        throw err;
       }
-    );
-    res.send("Hello 4");
+      console.log({ pro });
+    });
+    res.send(pro);
   });
 }
+
 module.exports = {
   createNewCart,
   getCartByID,

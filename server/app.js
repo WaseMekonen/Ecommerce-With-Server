@@ -5,14 +5,14 @@ const express = require("express"),
   updateProductByiD,
   removeProductByID,
 } = require("./routes/products"),
-{createNewCart,getCartByID,addItemToCart,removeItemToCart} = require("./routes/carts");
+{createNewCart,getCartByID,addItemToCart,removeItemToCart} = require("./routes/carts"),
   path = require("path"),
   app = express(),
   PORT = 8080,
   mongoDb = require("mongodb"),
-  mongoClient = mongoDb.MongoClient,
-  objectId = mongoDb.ObjectId,
-  URL = "mongodb://localhost:27017",
+  mongoClient = mongoDb.MongoClient;
+  // const objectId = mongoDb.ObjectId,
+  URL = process.env.MongoURL || "mongodb://localhost:27017",
   clientPath = path.join(__dirname, "..", "client");
 
 app.use(express.static(clientPath));
