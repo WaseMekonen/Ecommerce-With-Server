@@ -17,6 +17,14 @@ function getCartByID(app, db) {
   });
 }
 
+
+
+
+
+
+
+
+
 function createNewCart(app, db) {
   app.post("/carts", (req, res) => {
     // create new cart
@@ -24,6 +32,15 @@ function createNewCart(app, db) {
     res.send("hello 1");
   });
 }
+
+
+
+
+
+
+
+
+
 
 function addItemToCart(app, db) {
   app.patch("/carts/add", (req, res) => {
@@ -53,20 +70,29 @@ function addItemToCart(app, db) {
   });
 }
 
+
+
+
+
+
+
 function removeItemToCart(app, db) {
   app.patch("/carts/delete/:id", (req, res) => {
     // delete items from cart
-    const paramId = req.param.id
-    const obj = { _id:objectId(paramId) };
-    db.collection("carts").findOneAndUpdate({_id:objectId("618d25222145eebaf38d1cf8")},{ $pull: { products: {_id:objectId(paramId)} } },(err, pro) => {
-      if (err) {
-        throw err;
+    db.collection('carts').update({},{$pull:{products:{_id:objectId(req.params.id)}}},(err,product)=>{
+      if(err){
+        throw err
       }
-      console.log({ pro });
-    });
-    res.send(pro);
+      console.log(product);
+    })
+    // res.send(produts);
+ 
   });
 }
+
+
+
+
 
 module.exports = {
   createNewCart,
