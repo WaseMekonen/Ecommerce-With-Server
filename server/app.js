@@ -5,7 +5,7 @@ const express = require("express"),
   updateProductByiD,
   removeProductByID,
 } = require("./routes/products"),
-{createNewCart,getCartByID,addItemToCart,removeItemToCart} = require("./routes/carts"),
+{createNewCart,getCartByID,addItemToCart,removeItemFromCart} = require("./routes/carts"),
   path = require("path"),
   app = express(),
   PORT = 8080,
@@ -36,7 +36,7 @@ mongoClient.connect(URL, (err, mongo) => {
   addItemToCart(app,db);
   createNewCart(app,db);
   getCartByID(app,db);
-  removeItemToCart(app,db);
+  removeItemFromCart(app,db);
 
   // Contact:
 

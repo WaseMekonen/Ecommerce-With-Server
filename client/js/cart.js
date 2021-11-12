@@ -18,11 +18,12 @@ axios
 
 function updateTableProducts(coustomerCart) {
   let rawHtml = "";
+  
   for (let i = 0; i < coustomerCart.length; i++) {
     rawHtml += `
         <tr class="item-row">
         <td class="item">
-          <img class="item-img" src="${coustomerCart[i].image}"> 
+          <img class="item-img" src="${coustomerCart[i].image[0]}"> 
           <div class="item-description">
             <h5>${coustomerCart[i].name}</h5>
           </div>

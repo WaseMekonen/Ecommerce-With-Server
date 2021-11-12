@@ -7,7 +7,6 @@ const itemCounterButoon = document.getElementById("itemCounter");
 
 function showItemByCategory(div, category, products) {
   for (let i = 0; i < products.length; i++) {
-    console.log(products[0]);
     if (products[i].category == category) {
       div.innerHTML += `<div class="card">
       <div class="image" style="background-image: url(${products[i].image[0]})" onmouseover="this.style.backgroundImage='url(${products[i].image[1]})'" onmouseout="this.style.backgroundImage='url(${products[i].image[0]})'"></div>
@@ -52,7 +51,6 @@ function addProductToCart (_id,name,price,description,category,image,quantity){
     _id,name,price,description,category,image,quantity
   })
     .then(response =>{
-      console.log(response.data);
     })
     .catch(err=>{
       console.log(err);

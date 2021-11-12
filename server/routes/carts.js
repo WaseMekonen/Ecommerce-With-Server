@@ -71,12 +71,7 @@ function addItemToCart(app, db) {
 }
 
 
-
-
-
-
-
-function removeItemToCart(app, db) {
+function removeItemFromCart(app, db) {
   app.patch("/carts/delete/:id", (req, res) => {
     // delete items from cart
     db.collection('carts').update({},{$pull:{products:{_id:objectId(req.params.id)}}},(err,product)=>{
@@ -98,5 +93,5 @@ module.exports = {
   createNewCart,
   getCartByID,
   addItemToCart,
-  removeItemToCart,
+  removeItemFromCart,
 };
