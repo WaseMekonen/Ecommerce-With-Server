@@ -365,8 +365,8 @@ footer {
   #cart-icon:before {
     content: "\f07a";
     position: absolute;
-    top: 358px;
-    right: 66px;
+    top: -14px;
+    right: -17px;
   }
   #itemCounter {
     display: none;

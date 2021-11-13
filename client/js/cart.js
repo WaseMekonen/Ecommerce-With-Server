@@ -3,17 +3,19 @@ const tableCountainer = document.getElementById("table");
 const total = document.getElementById("total");
 const subTotal = document.getElementById("sub-total");
 
-
+ function render(){
 axios
   .get("/carts/618d25222145eebaf38d1cf8")
   .then((response) => {
     const newCart = response.data.products
     console.log(response.data.products);
-    render(newCart);
+    updateTableProducts(newCart);
+    updateTotal(newCart);
   })
   .catch((err) => {
     console.log(err);
   });
+}
 
 
 function updateTableProducts(coustomerCart) {
@@ -44,11 +46,13 @@ function updateTableProducts(coustomerCart) {
 
 
 function deleteItemFromCart(id){
-  console.log(id);
+  console.log(id +'hello');
   axios
   .patch(`/carts/delete/${id}`)
   .then((response)=>{
+    console.log('hello')
     console.log(response);
+    render()
   })
   .catch((err)=>{
     console.log(err);
@@ -64,67 +68,65 @@ function updateTotal(coustomerCart) {
   subTotal.innerHTML = sum + `$`;
 }
 
-function render(newCart) {
-  updateTableProducts(newCart);
-  updateTotal(newCart);
+
+render();
+
+
+function getCartItemIndexByID(id) {
+  for (let i = 0; i <newCart.length; i++) {
+    if (newCart[i].id == id) {
+      return i;
+    }
+  }
 }
 
+function addEventListenersToRemoveIcons() {
+  const removeIcons = document.getElementsByClassName("remove-icon");
 
+  for (let i = 0; i < removeIcons.length; i++) {
+    removeIcons[i].addEventListener("click", function (e) {
+      const removeButton = e.target;
+      removeItemFromCartById(removeButton.id, coustomerCart);
 
-// function getCartItemIndexByID(id) {
-//   for (let i = 0; i <newCart.length; i++) {
-//     if (newCart[i].id == id) {
-//       return i;
-//     }
-//   }
-// }
+    });
+  }
+}
 
-// function addEventListenersToRemoveIcons() {
-//   const removeIcons = document.getElementsByClassName("remove-icon");
+function addEventListenersToPlusIcons() {
+  const plusIcons = document.getElementsByClassName("plus");
 
-//   for (let i = 0; i < removeIcons.length; i++) {
-//     removeIcons[i].addEventListener("click", function (e) {
-//       const removeButton = e.target;
-//       removeItemFromCartById(removeButton.id, coustomerCart);
-
-//     });
-//   }
-// }
-
-// function addEventListenersToPlusIcons() {
-//   const plusIcons = document.getElementsByClassName("plus");
-
-//   for (let i = 0; i < plusIcons.length; i++) {
-//     plusIcons[i].addEventListener("click", function (e) {
-//         const plusButton = e.target;
-//         const itemIdString = plusButton.id;
-//         const itemId = Number(itemIdString.slice(-1));
-//         const cartItemIndex = getCartItemIndexByID(itemId);
-//         coustomerCart[cartItemIndex].quantity += 1;
+  for (let i = 0; i < plusIcons.length; i++) {
+    plusIcons[i].addEventListener("click", function (e) {
+        const plusButton = e.target;
+        const itemIdString = plusButton.id;
+        const itemId = Number(itemIdString.slice(-1));
+        const cartItemIndex = getCartItemIndexByID(itemId);
+        coustomerCart[cartItemIndex].quantity += 1;
   
-//     });
-//   }
-// }
+    });
+  }
+}
 
-// function addEventListenersToMinusIcons() {
-//   const minusIcons = document.getElementsByClassName("minus");
+function addEventListenersToMinusIcons() {
+  const minusIcons = document.getElementsByClassName("minus");
 
-//   for (let i = 0; i < minusIcons.length; i++) {
-//     minusIcons[i].addEventListener("click", function (e) {
-//       const minusButton = e.target;
-//       const itemIdString = minusButton.id;
-//       const itemId = Number(itemIdString.slice(-1));
-//       const cartItemIndex = getCartItemIndexByID(itemId);
-//       if(coustomerCart[cartItemIndex].quantity > 1){
-//         coustomerCart[cartItemIndex].quantity -= 1;
-//       }
+  for (let i = 0; i < minusIcons.length; i++) {
+    minusIcons[i].addEventListener("click", function (e) {
+      const minusButton = e.target;
+      const itemIdString = minusButton.id;
+      const itemId = Number(itemIdString.slice(-1));
+      const cartItemIndex = getCartItemIndexByID(itemId);
+      if(coustomerCart[cartItemIndex].quantity > 1){
+        coustomerCart[cartItemIndex].quantity -= 1;
+      }
     
-//     });
-//   }
-// }
+    });
+  }
+}
 
-// function addListeners() {
-//   addEventListenersToRemoveIcons();
-//   addEventListenersToPlusIcons();
-//   addEventListenersToMinusIcons();
-// }
+function addListeners() {
+  addEventListenersToRemoveIcons();
+  addEventListenersToPlusIcons();
+  addEventListenersToMinusIcons();
+}
+

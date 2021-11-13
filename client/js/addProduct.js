@@ -12,6 +12,8 @@ function addProduct(e) {
   const description = document.getElementById("form-description").value;
   const image = [image1, image2];
 
+  console.log(name);
+
   axios
     .post("/products", {
       name,

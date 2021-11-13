@@ -81,7 +81,7 @@ main {
   margin-top: 4vh;
   width: 100%;
   height: auto;
-  background-color: #e0e0e0;;
+  background-color: #e0e0e0;
 }
 
 .navbar {
@@ -91,7 +91,7 @@ main {
   color: white;
   z-index: 1;
 }
-#itemCounter{
+#itemCounter {
   display: none;
   position: absolute;
   background: white;
@@ -105,12 +105,12 @@ main {
   top: 6px;
   text-align: center;
 }
-.fa-shopping-cart{
+.fa-shopping-cart {
   content: "\f07a";
-  font-size: 23px;
+  font-size: 17px;
   position: absolute;
-  top: 27px;
-  right: -3px;
+  top: 24 px;
+  right: 10 px;
 }
 
 .products {
@@ -127,7 +127,7 @@ main {
 .cards-container {
   display: flex;
   flex-wrap: wrap;
-  background-color: #e0e0e0;;
+  background-color: #e0e0e0;
 }
 .card {
   display: inline-block;
@@ -172,16 +172,14 @@ main {
   padding: 7px;
   cursor: pointer;
 }
-.card-bottom .delete-button{
+.card-bottom .delete-button {
   background-color: #b02a2a;
 }
 .card-bottom {
   font-size: 23px;
 }
 
-
 /* footer */
-
 
 footer {
   /* position: absolute; */
@@ -222,8 +220,6 @@ footer {
 .follow-us img:hover {
   filter: invert(1);
 }
-
-
 
 /* responsive: */
 /* pages */
@@ -267,8 +263,8 @@ footer {
   .fa-shopping-cart:before {
     content: "\f07a";
     position: absolute;
-    top: 214px;
-    right: 43px;
+    top: -14px;
+    right: -17px;
   }
   #itemCounter {
     display: none;

@@ -51,6 +51,7 @@ function addProductToCart (_id,name,price,description,category,image,quantity){
     _id,name,price,description,category,image,quantity
   })
     .then(response =>{
+      console.log(response);
     })
     .catch(err=>{
       console.log(err);

@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://kit.fontawesome.com/d6ed6dee1c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/adminPage.css"/>
     <link rel="stylesheet" href="/css/pages.css"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Quattrocento+Sans&family=Racing+Sans+One&display=swap" rel="stylesheet"/>
@@ -19,41 +21,20 @@
         </div></a>
         <i class="fas fa-bars" id="burgerMenu"></i>
         <ul id="menu" class="hide-menu">
-          <li><a href="/html/contact.html">contact</a></li>
           <li><a href="/html/drones.html">Drones</a></li>
           <li><a href="/html/consoles.html">Consoles</a></li>
           <li><a href="/html/mobiles.html">Mobiles</a></li>
           <li><a href="/html/laptops.html">Laptops</a></li>
-          <li><a href="/html/admin.html"><i class="fas fa-user"></i></a></li>
           <li><a href="/html/cart.html"><i class="fas fa-shopping-cart" id=cart-icon><span id="itemCounter"></span></i></a>
         </ul>
       </nav>
     </header>
-    <main>
-      <div class="banner">
-        <h1>Shop Now</h1>
-        <h2>get more.</h2>
-        <div class="circle-drone-bg">
-          <img src="/images/home/bannerDrone.png" alt="" />
-        </div>
-      </div>
-      <div class="categories">
-        <a href="/html/drones.html"><section class="Drones-cat">
-          <h3>Drones</h3>
-          <img src="/images/home/drone.png" alt="" />
-        </section><a/>
-        <a href="/html/laptops.html"><section class="computers-cat">
-          <h3>Laptops</h3>
-          <img src="/images/home/computer.png" alt="" />
-        </section></a>
-        <a href="/html/consoles.html"><section class="Consoles-cat">
-          <h3>Console Games</h3>
-          <img src="/images/home/consoleGames.png" alt="" />
-        </section></a>
-        <a href="/html/mobiles.html"><section class="Mobiles-cat">
-          <h3>Mobiles</h3>
-          <img src="/images/home/SmartPhone.png" alt="" />
-        </section></a>
+    <main class="adminMain">
+      <h1 class="form-header">Admin page</h1>
+      <div class="admin-container">
+        <div id="addProductsPageLink"><a href="/html/addProduct.html">Add products</a></div>
+        <div id="updateProductsPageLink"><a href="/html/updateProduct.html">Update products</a></div>
+        <div id="showUsersMessagesPageLink"><a href="/html/consoles.html">Show Users Messages</a></div>
       </div>
     </main>
     <footer>
