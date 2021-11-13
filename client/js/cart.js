@@ -1,26 +1,24 @@
-
 const tableCountainer = document.getElementById("table");
 const total = document.getElementById("total");
 const subTotal = document.getElementById("sub-total");
 
- function render(){
-axios
-  .get("/carts/618d25222145eebaf38d1cf8")
-  .then((response) => {
-    const newCart = response.data.products
-    console.log(response.data.products);
-    updateTableProducts(newCart);
-    updateTotal(newCart);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+function render() {
+  axios
+    .get("/carts/619028c92121e8d9e3a2c533")
+    .then((response) => {
+      const newCart = response.data.products;
+      console.log(response.data.products);
+      updateTableProducts(newCart);
+      updateTotal(newCart);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
-
 
 function updateTableProducts(coustomerCart) {
   let rawHtml = "";
-  
+
   for (let i = 0; i < coustomerCart.length; i++) {
     rawHtml += `
         <tr class="item-row">
@@ -32,31 +30,37 @@ function updateTableProducts(coustomerCart) {
         </td>
         <td class="item-price">${coustomerCart[i].price}$</td>
         <td class="item-quantity">
-          <span class="minus" ><i class="fas fa-minus" id="minus-${coustomerCart[i]._id}"></i></span>
+          <span class="minus" ><i class="fas fa-minus" id="minus-${
+            coustomerCart[i]._id
+          }"></i></span>
           <span class="quantity">${coustomerCart[i].quantity}</span>
-          <span class="plus" ><i class="fas fa-plus" id="plus-${coustomerCart[i]._id}"></i><span>
+          <span class="plus" ><i class="fas fa-plus" id="plus-${
+            coustomerCart[i]._id
+          }"></i><span>
         </td>
-        <td class="item-total">${coustomerCart[i].price * coustomerCart[i].quantity}$</td>
-        <td  ><span class="remove-icon"><i onclick="deleteItemFromCart('${coustomerCart[i]._id}')" class="fas fa-times"></i></span></td>
+        <td class="item-total">${
+          coustomerCart[i].price * coustomerCart[i].quantity
+        }$</td>
+        <td  ><span class="remove-icon"><i onclick="deleteItemFromCart('${
+          coustomerCart[i]._id
+        }')" class="fas fa-times"></i></span></td>
         </tr>`;
   }
   tableCountainer.innerHTML = rawHtml;
 }
 
-
-
-function deleteItemFromCart(id){
-  console.log(id +'hello');
+function deleteItemFromCart(id) {
+  console.log(id + "hello");
   axios
-  .patch(`/carts/delete/${id}`)
-  .then((response)=>{
-    console.log('hello')
-    console.log(response);
-    render()
-  })
-  .catch((err)=>{
-    console.log(err);
-  })
+    .patch(`/carts/delete/${id}`)
+    .then((response) => {
+      console.log("hello");
+      console.log(response);
+      render();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 function updateTotal(coustomerCart) {
@@ -68,12 +72,10 @@ function updateTotal(coustomerCart) {
   subTotal.innerHTML = sum + `$`;
 }
 
-
 render();
 
-
 function getCartItemIndexByID(id) {
-  for (let i = 0; i <newCart.length; i++) {
+  for (let i = 0; i < newCart.length; i++) {
     if (newCart[i].id == id) {
       return i;
     }
@@ -87,7 +89,6 @@ function addEventListenersToRemoveIcons() {
     removeIcons[i].addEventListener("click", function (e) {
       const removeButton = e.target;
       removeItemFromCartById(removeButton.id, coustomerCart);
-
     });
   }
 }
@@ -97,12 +98,11 @@ function addEventListenersToPlusIcons() {
 
   for (let i = 0; i < plusIcons.length; i++) {
     plusIcons[i].addEventListener("click", function (e) {
-        const plusButton = e.target;
-        const itemIdString = plusButton.id;
-        const itemId = Number(itemIdString.slice(-1));
-        const cartItemIndex = getCartItemIndexByID(itemId);
-        coustomerCart[cartItemIndex].quantity += 1;
-  
+      const plusButton = e.target;
+      const itemIdString = plusButton.id;
+      const itemId = Number(itemIdString.slice(-1));
+      const cartItemIndex = getCartItemIndexByID(itemId);
+      coustomerCart[cartItemIndex].quantity += 1;
     });
   }
 }
@@ -116,10 +116,9 @@ function addEventListenersToMinusIcons() {
       const itemIdString = minusButton.id;
       const itemId = Number(itemIdString.slice(-1));
       const cartItemIndex = getCartItemIndexByID(itemId);
-      if(coustomerCart[cartItemIndex].quantity > 1){
+      if (coustomerCart[cartItemIndex].quantity > 1) {
         coustomerCart[cartItemIndex].quantity -= 1;
       }
-    
     });
   }
 }
@@ -129,4 +128,3 @@ function addListeners() {
   addEventListenersToPlusIcons();
   addEventListenersToMinusIcons();
 }
-

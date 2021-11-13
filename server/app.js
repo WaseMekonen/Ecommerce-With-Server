@@ -4,14 +4,19 @@ const express = require("express"),
   path = require("path"),
   app = express(),
   PORT = 8080,
-  URL = process.env.MongoURL || "mongodb://localhost:27017",
+  // URL = process.env.MongoURL || "mongodb://localhost:27017",
   clientPath = path.join(__dirname, "..", "client"),
   { getAllProduct,createProduct,updateProductByiD,removeProductByID,} = require("./routes/products"),
   {createNewCart,getCartByID,addItemToCart,removeItemFromCart,} = require("./routes/carts"),
   {createNewMessage, getAllmessages}= require("./routes/contact");
+const dotenv = require('dotenv');
+dotenv.config();
+console.log(dotenv)
+const URL = process.env.URL;
 
 app.use(express.static(clientPath));
 app.use(express.json());
+console.log("URL",URL)
 
 mongoClient.connect(URL, (err, mongo) => {
   if (err) {

@@ -39,7 +39,7 @@ function addItemToCart(app, db) {
     };
 
     db.collection("carts").updateOne(
-      { _id: objectId("618d25222145eebaf38d1cf8") },
+      { _id: objectId("619028c92121e8d9e3a2c533") },
       { $push: { products: reqBody } },
       (err, addItem) => {
         if (err) {
@@ -66,7 +66,7 @@ function removeItemFromCart(app, db) {
         console.log(cartUpdated);
         res.send(cartUpdated);
       }
-      );
+    );
   });
 }
 
@@ -84,7 +84,7 @@ function removeItemFromCart(app, db) {
 //     };
 
 //     db.collection("carts").updateOne(
-//       { _id: objectId("618d25222145eebaf38d1cf8"), "products._id": "pizza"  },
+//       { _id: objectId("619028c92121e8d9e3a2c533"), "products._id": "pizza"  },
 //       { $push: { products: reqBody } },
 //       (err, addItem) => {
 //         if (err) {
@@ -97,8 +97,6 @@ function removeItemFromCart(app, db) {
 //     res.send("this is add to cart");
 //   });
 // }
-
-
 
 module.exports = {
   createNewCart,
