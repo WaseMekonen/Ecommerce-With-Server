@@ -11,12 +11,10 @@ const express = require("express"),
   {createNewMessage, getAllmessages}= require("./routes/contact");
 const dotenv = require('dotenv');
 dotenv.config();
-console.log(dotenv)
-const URL = process.env.URL;
+const URL = process.env.MONGO_URL;
 
 app.use(express.static(clientPath));
 app.use(express.json());
-console.log("URL",URL)
 
 mongoClient.connect(URL, (err, mongo) => {
   if (err) {
