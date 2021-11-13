@@ -3,7 +3,6 @@ const express = require("express"),
   mongoClient = mongoDb.MongoClient,
   path = require("path"),
   app = express(),
-  PORT = 8080,
   clientPath = path.join(__dirname, "..", "client"),
   { getAllProduct,createProduct,updateProductByiD,removeProductByID,} = require("./routes/products"),
   {createNewCart,getCartByID,addItemToCart,removeItemFromCart,} = require("./routes/carts"),
@@ -11,6 +10,7 @@ const express = require("express"),
 const dotenv = require('dotenv');
 dotenv.config();
 const URL = process.env.MONGO_URL;
+const PORT = process.env.PORT || 8080;
 
 app.use(express.static(clientPath));
 app.use(express.json());
