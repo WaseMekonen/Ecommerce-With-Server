@@ -21,6 +21,7 @@ function addProduct(e) {
       category,
       image,
       description,
+      quantity: 1,
     })
     .then((response) => {
       console.log(response);
@@ -56,3 +57,4 @@ function updateProduct(e) {
       console.log(err);
     });
 }
+
