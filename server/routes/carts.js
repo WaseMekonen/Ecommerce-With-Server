@@ -2,6 +2,7 @@ const mongoDb = require("mongodb"),
   objectId = mongoDb.ObjectId;
 
 function createNewCart(app, db) {
+
   app.post("/carts", (req, res) => {
     // create new cart
     db.collection("carts").insertOne(req.body);
@@ -70,33 +71,6 @@ function removeItemFromCart(app, db) {
   });
 }
 
-// function changeCartProductQuantity(app, db) {
-//   app.patch("/carts/updateQuantity", (req, res) => {
-//     //  add item to cart
-//     const reqBody = {
-//       _id: objectId(req.body.id),
-//       name: req.body.name,
-//       price: req.body.price,
-//       description: req.body.description,
-//       category: req.body.category,
-//       image: req.body.image,
-//       quantity: req.body.quantity,
-//     };
-
-//     db.collection("carts").updateOne(
-//       { _id: objectId("619028c92121e8d9e3a2c533"), "products._id": "pizza"  },
-//       { $push: { products: reqBody } },
-//       (err, addItem) => {
-//         if (err) {
-//           throw err;
-//         } else {
-//           console.log(addItem);
-//         }
-//       }
-//     );
-//     res.send("this is add to cart");
-//   });
-// }
 
 module.exports = {
   createNewCart,

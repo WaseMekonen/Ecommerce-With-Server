@@ -1,4 +1,3 @@
-const mongoDb = require("mongodb");
 
 function createNewMessage(app, db) {
   app.post("/contact", (req, res) => {
