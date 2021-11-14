@@ -10,7 +10,7 @@ function addMessagesFromContact(e) {
     Message = document.getElementById("coMessage").value;
 
   const userMessageObj = {
-    "FullName":Fullname,
+    Fullname,
     Mail,
     Message,
   };
