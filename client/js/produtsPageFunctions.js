@@ -1,4 +1,3 @@
-
 const cardContainer = document.getElementById("cards-container");
 const pagesCategory = document.getElementsByClassName("page-category")[0];
 const addToCartButtons = document.getElementsByClassName("addtocart-button");
@@ -8,7 +7,7 @@ const itemCounterButoon = document.getElementById("itemCounter");
 function showItemByCategory(div, category, products) {
   for (let i = 0; i < products.length; i++) {
     if (products[i].category == category) {
-      div.innerHTML += `<div class="card">
+      div.innerHTML += `<div class="card" id="card">
       <div class="image" style="background-image: url(${products[i].image[0]})" onmouseover="this.style.backgroundImage='url(${products[i].image[1]})'" onmouseout="this.style.backgroundImage='url(${products[i].image[0]})'"></div>
       <div class="details">
         <h4>${products[i].name}</h4>
@@ -39,11 +38,11 @@ function deleteItem (id){
   axios.delete(`/products/${id}`)
   .then(response =>{
     console.log(response);
+    alert("Item Has Been Deleted");
   })
   .catch(err=>{
     console.log(err);
   })
-  // console.log(id);
 }
 
 function addProductToCart (_id,name,price,description,category,image,quantity){
